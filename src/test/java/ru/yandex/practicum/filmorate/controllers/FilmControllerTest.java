@@ -1,3 +1,4 @@
+
 package ru.yandex.practicum.filmorate.controllers;
 
 import org.junit.jupiter.api.Test;
@@ -59,5 +60,6 @@ class FilmControllerTest {
     private Executable generateExecutable(Film film) {
         return () -> filmController.validateFilm(film);
     }
+
 
 }
