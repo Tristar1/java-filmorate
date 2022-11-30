@@ -1,3 +1,4 @@
+
 package ru.yandex.practicum.filmorate.model;
 
 import lombok.Builder;
@@ -14,3 +15,4 @@ public class User {
     String name;
     LocalDate birthday;
 }
+
