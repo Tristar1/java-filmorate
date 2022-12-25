@@ -3,6 +3,8 @@ package ru.yandex.practicum.filmorate.controllers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 import ru.yandex.practicum.filmorate.model.User;
+import ru.yandex.practicum.filmorate.storage.InMemoryFilmStorage;
+import ru.yandex.practicum.filmorate.storage.InMemoryUserStorage;
 
 import java.time.LocalDate;
 
@@ -10,7 +12,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class UserControllerTest {
 
-    private final UserController userController = new UserController();
+    private final InMemoryUserStorage inMemoryUserStorage = new InMemoryUserStorage();
+    private final UserController userController = new UserController(inMemoryUserStorage);
 
     @Test
     void validate() {
@@ -50,6 +53,6 @@ class UserControllerTest {
     }
 
     private Executable generateExecutable(User user) {
-        return () -> userController.validateUser(user);
+        return () -> inMemoryUserStorage.validateUser(user);
     }
 }

@@ -5,12 +5,16 @@ import ru.yandex.practicum.filmorate.model.Film;
 
 import org.junit.jupiter.api.function.Executable;
 import java.time.LocalDate;
+import ru.yandex.practicum.filmorate.storage.InMemoryFilmStorage;
+import ru.yandex.practicum.filmorate.storage.InMemoryUserStorage;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class FilmControllerTest {
 
-    private final FilmController filmController = new FilmController();
+    private final InMemoryFilmStorage inMemoryFilmStorage = new InMemoryFilmStorage();
+    private final InMemoryUserStorage inMemoryUserStorage = new InMemoryUserStorage();
+    private final FilmController filmController = new FilmController(inMemoryFilmStorage, inMemoryUserStorage);
 
     @Test
     void validate() {
@@ -57,7 +61,7 @@ class FilmControllerTest {
     }
 
     private Executable generateExecutable(Film film) {
-        return () -> filmController.validateFilm(film);
+        return () -> inMemoryFilmStorage.validateFilm(film);
     }
 
 }
