@@ -9,10 +9,10 @@ import java.util.Set;
 @Data
 @Builder
 public class User {
-    long id;
-    String email;
-    String login;
-    String name;
-    LocalDate birthday;
-    Set<Long> friendList;
+    private long id;
+    private String email;
+    private String login;
+    private String name;
+    private LocalDate birthday;
+    private Set<Long> friendList;
 }

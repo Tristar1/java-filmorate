@@ -9,12 +9,12 @@ import java.util.Set;
 @Data
 @Builder
 public class Film {
-    Integer id;
-    String name;
-    String description;
-    LocalDate releaseDate;
-    int duration;
-    Set<Long> likes;
+    private Integer id;
+    private String name;
+    private String description;
+    private LocalDate releaseDate;
+    private int duration;
+    private Set<Long> likes;
     public Integer getLikesCount(){
         return likes.size();
     }

@@ -6,10 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.Film;
-import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.service.FilmService;
+import ru.yandex.practicum.filmorate.service.UserService;
 import ru.yandex.practicum.filmorate.storage.FilmStorage;
-import ru.yandex.practicum.filmorate.storage.UserStorage;
 
 import java.util.List;
 
@@ -17,56 +16,53 @@ import java.util.List;
 @Slf4j
 @RestController
 public class FilmController {
+    private final FilmService filmService;
+    private final UserService userService;
 
-    FilmStorage filmStorage;
-    FilmService filmService;
-    UserStorage userStorage;
+    public FilmController(FilmStorage filmStorage, UserService userService){
 
-    public FilmController(FilmStorage filmStorage, UserStorage userStorage){
-
-        this.filmStorage = filmStorage;
         this.filmService = new FilmService(filmStorage);
-        this.userStorage = userStorage;
+        this.userService = userService;
 
     }
 
     @GetMapping("/films")
     public List<Film> getAllFilms() {
         log.debug("Выполнен запрос get /film");
-        return filmStorage.getAll();
+        return filmService.getAll();
     }
 
     @GetMapping("/films/{filmId}")
     public ResponseEntity<Film> findById(@PathVariable int filmId) {
-        return new ResponseEntity<>(filmStorage.getFilm(filmId), HttpStatus.OK);
+        return new ResponseEntity<>(filmService.getFilm(filmId), HttpStatus.OK);
     }
 
     @PostMapping(value = "/films")
-    public ResponseEntity create(@RequestBody Film film) {
+    public ResponseEntity<Film> create(@RequestBody Film film) {
         log.debug("Выполнен запрос PUT /film .");
-        return new ResponseEntity<>(filmStorage.create(film), HttpStatus.CREATED);
+        return new ResponseEntity<>(filmService.create(film), HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/films")
-    public ResponseEntity update(@RequestBody Film film) {
-        return new ResponseEntity<>(filmStorage.update(film), HttpStatus.OK);
+    public ResponseEntity<Film> update(@RequestBody Film film) {
+        return new ResponseEntity<>(filmService.update(film), HttpStatus.OK);
     }
 
     @PutMapping(value = "/films/{id}/like/{userId}")
-    public ResponseEntity addLike(@PathVariable Integer id, @PathVariable long userId) {
-        userStorage.getUser(userId);
+    public ResponseEntity<Film> addLike(@PathVariable Integer id, @PathVariable long userId) {
+        userService.getUser(userId);
         return new ResponseEntity<>(filmService.addLike(id,userId), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/films/{id}/like/{userId}")
-    public ResponseEntity removeLike(@PathVariable Integer id, @PathVariable long userId) {
-        userStorage.getUser(userId);
+    public ResponseEntity<Film> removeLike(@PathVariable Integer id, @PathVariable long userId) {
+        userService.getUser(userId);
         filmService.removeLike(id,userId);
         return new ResponseEntity<>(filmService.removeLike(id,userId), HttpStatus.OK);
     }
 
     @GetMapping("/films/popular")
-    public ResponseEntity getFirst10LikedFilms(@RequestParam(defaultValue = "10") Integer count) {
+    public ResponseEntity<List<Film>> getFirst10LikedFilms(@RequestParam(defaultValue = "10") Integer count) {
         return new ResponseEntity<>(filmService.getFirst10LikedFilms(count), HttpStatus.OK);
     }
 

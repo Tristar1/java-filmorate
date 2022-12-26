@@ -4,14 +4,14 @@ import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.storage.FilmStorage;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class FilmService {
-    FilmStorage filmStorage;
+    private final FilmStorage filmStorage;
 
     public FilmService(FilmStorage filmStorage){
         this.filmStorage = filmStorage;
@@ -33,4 +33,18 @@ public class FilmService {
                 .limit(count)
                 .collect(Collectors.toList());
     }
+
+    public List<Film> getAll() {
+        return filmStorage.getAll();
+    }
+    public Film create(Film film) {
+        return filmStorage.create(film);
+    }
+    public Film update(Film film) {
+        return filmStorage.update(film);
+    }
+    public Film getFilm(Integer filmId) {
+        return filmStorage.getFilm(filmId);
+    }
+
 }

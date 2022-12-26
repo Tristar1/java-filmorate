@@ -11,41 +11,55 @@ import java.util.stream.Collectors;
 @Service
 public class UserService {
 
-    UserStorage userStorage;
+    private final UserStorage userStorage;
 
     public UserService(UserStorage userStorage){
         this.userStorage = userStorage;
     }
 
-    public void addFriend(long idUser, long idFriend){
-        userStorage.getUser(idUser).getFriendList().add(userStorage.getUser(idFriend).getId());
+    public User addFriend(long idUser, long idFriend){
+        User user = userStorage.getUser(idUser);
+        user.getFriendList().add(userStorage.getUser(idFriend).getId());
         userStorage.getUser(idFriend).getFriendList().add(idUser);
+        return user;
     }
 
-    public void removeFriend(long idUser, long idFriend){
-       userStorage.getUser(idUser).getFriendList().remove(userStorage.getUser(idFriend).getId());
+    public User removeFriend(long idUser, long idFriend){
+       User user = userStorage.getUser(idUser);
+       user.getFriendList().remove(userStorage.getUser(idFriend).getId());
        userStorage.getUser(idFriend).getFriendList().remove(idUser);
+       return user;
     }
 
     public List<User> getFriends(long idUser){
 
         return userStorage.getAll().stream()
-                .filter((User user) -> {return userStorage.getUser(idUser).getFriendList().contains(user.getId());})
+                .filter((User user) -> userStorage.getUser(idUser).getFriendList().contains(user.getId()))
                 .collect(Collectors.toList());
     }
 
     public List<User> getCommonFriends(long idUser, long idFriend){
 
         List<Long> commonFriendsId = userStorage.getUser(idUser).getFriendList().stream()
-                        .filter((Long id) -> {return userStorage.getUser(idFriend)
-                        .getFriendList().contains(id);})
+                        .filter((Long id) -> userStorage.getUser(idFriend)
+                        .getFriendList().contains(id))
                         .collect(Collectors.toList());
 
         return userStorage.getAll().stream()
-                .filter((User user) -> {return commonFriendsId.contains(user.getId());})
+                .filter((User user) -> commonFriendsId.contains(user.getId()))
                 .collect(Collectors.toList());
     }
 
-
-
+    public List<User> getAll() {
+        return userStorage.getAll();
+    }
+    public User create(User user) {
+        return userStorage.create(user);
+    }
+    public User update(User user) {
+        return userStorage.update(user);
+    }
+    public User getUser(long userId) {
+        return userStorage.getUser(userId);
+    }
 }
