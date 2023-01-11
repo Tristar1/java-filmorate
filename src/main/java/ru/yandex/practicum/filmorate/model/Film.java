@@ -4,13 +4,18 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Data
 @Builder
 public class Film {
-    int id;
-    String name;
-    String description;
-    LocalDate releaseDate;
-    int duration;
+    private Integer id;
+    private String name;
+    private String description;
+    private LocalDate releaseDate;
+    private int duration;
+    private Set<Long> likes;
+    public Integer getLikesCount(){
+        return likes.size();
+    }
 }

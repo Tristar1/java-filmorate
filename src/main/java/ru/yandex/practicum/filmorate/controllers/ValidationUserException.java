@@ -2,13 +2,10 @@ package ru.yandex.practicum.filmorate.controllers;
 
 import org.springframework.http.HttpStatus;
 
-public class ValidationUserException extends Exception {
+public class ValidationUserException extends RuntimeException {
 
-    HttpStatus httpStatus;
-
-    public ValidationUserException(final String message, HttpStatus httpStatus) {
+    public ValidationUserException(final String message) {
         super(message);
-        this.httpStatus = httpStatus == null ? HttpStatus.BAD_REQUEST : httpStatus;
     }
 
 }
