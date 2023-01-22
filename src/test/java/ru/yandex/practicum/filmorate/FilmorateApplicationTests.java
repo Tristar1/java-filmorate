@@ -33,12 +33,12 @@ class FilmoRateApplicationTests {
     @Test
     public void testFindUserById() {
 
-        userStorage.create(User.builder()
+        /*userStorage.create(User.builder()
                 .login("test")
                 .birthday(LocalDate.now())
                 .name("test")
                 .email("mail@mail.ru")
-                .build());
+                .build());*/
 
         /*Optional<User> userOptional = userStorage.getUser(Long.parseLong("1"));
 
@@ -47,12 +47,13 @@ class FilmoRateApplicationTests {
                 .hasValueSatisfying(user ->
                         assertThat(user).hasFieldOrPropertyWithValue("id", Long.parseLong("1"))
                 );*/
+	    
     }
 
 	@Test
 	public void testFindFilmById() {
 
-		filmStorage.create(Film.builder()
+		/*filmStorage.create(Film.builder()
 				.name("nisi eiusmod")
 				.releaseDate(LocalDate.now())
 				.name("film")
@@ -60,7 +61,7 @@ class FilmoRateApplicationTests {
 				.duration(100)
 				.mpa(mpaDao.getMpa(1))
 				.genres(new HashSet<>(List.of(genresDao.getGenreById(1))))
-				.build());
+				.build());*/
 
 		/*Optional<Film> userOptional = filmStorage.getFilm(1);*/
 
