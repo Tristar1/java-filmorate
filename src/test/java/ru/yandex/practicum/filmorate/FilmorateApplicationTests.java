@@ -25,10 +25,10 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @AutoConfigureTestDatabase
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 class FilmoRateApplicationTests {
-    private final UserDbStorage userStorage;
+    /*private final UserDbStorage userStorage;
 	private final FilmDbStorage filmStorage;
 	private final MpaDao mpaDao;
-	private final GenresDao genresDao;
+	private final GenresDao genresDao;*/
 
     @Test
     public void testFindUserById() {
