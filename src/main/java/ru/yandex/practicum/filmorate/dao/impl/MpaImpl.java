@@ -26,7 +26,12 @@ public class MpaImpl implements MpaDao {
     public MpaImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
         mpaMap = new HashMap<>();
-        checkMpa();
+        try {
+            checkMpa();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @Override
