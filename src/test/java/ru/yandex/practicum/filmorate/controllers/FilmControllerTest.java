@@ -10,6 +10,7 @@ import ru.yandex.practicum.filmorate.service.UserService;
 import ru.yandex.practicum.filmorate.storage.InMemoryFilmStorage;
 import ru.yandex.practicum.filmorate.storage.InMemoryUserStorage;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
+import ru.yandex.practicum.filmorate.storage.Validator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -66,7 +67,7 @@ class FilmControllerTest {
     }
 
     private Executable generateExecutable(Film film) {
-        return () -> inMemoryFilmStorage.validateFilm(film);
+        return () -> Validator.validateFilm(film);
     }
 
 }

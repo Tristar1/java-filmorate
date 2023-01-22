@@ -9,8 +9,9 @@ import ru.yandex.practicum.filmorate.service.UserService;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
 import java.util.List;
 
-@RestController
+
 @Slf4j
+@RestController
 public class UserController {
 
     private final UserService userService;
