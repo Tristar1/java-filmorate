@@ -56,7 +56,7 @@ public class UserDbStorage implements UserStorage {
         jdbcTemplate.update(insertUserText(),
                 user.getId(),user.getEmail(),
                 user.getLogin(),user.getName(),user.getBirthday());
-        return user;
+        return userDao.getUserById(user.getId()).get();
     }
 
     @Override
@@ -66,7 +66,7 @@ public class UserDbStorage implements UserStorage {
         jdbcTemplate.update(updateUserText(),
                 user.getEmail(),
                 user.getLogin(),user.getName(),user.getBirthday(),user.getId());
-        return user;
+        return userDao.getUserById(user.getId()).get();
     }
 
     @Override
