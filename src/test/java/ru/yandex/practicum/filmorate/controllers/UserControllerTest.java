@@ -5,7 +5,9 @@ import org.junit.jupiter.api.function.Executable;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.InMemoryFilmStorage;
 import ru.yandex.practicum.filmorate.storage.InMemoryUserStorage;
+import ru.yandex.practicum.filmorate.storage.Validator;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -53,6 +55,6 @@ class UserControllerTest {
     }
 
     private Executable generateExecutable(User user) {
-        return () -> inMemoryUserStorage.validateUser(user);
+        return () -> Validator.validateUser(user);
     }
 }

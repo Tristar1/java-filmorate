@@ -1,6 +1,7 @@
 package ru.yandex.practicum.filmorate.controllers;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -19,7 +20,7 @@ public class FilmController {
     private final FilmService filmService;
     private final UserService userService;
 
-    public FilmController(FilmStorage filmStorage, UserService userService){
+    public FilmController(@Qualifier("dbRealisation") FilmStorage filmStorage, UserService userService){
 
         this.filmService = new FilmService(filmStorage);
         this.userService = userService;
