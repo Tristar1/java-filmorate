@@ -43,15 +43,16 @@ public class FilmDbStorage implements FilmStorage{
     public Film create(Film film) {
         film.setId(getAll().size() + 1);
         Validator.validateFilm(film);
-        mpaDao.validateMpa(film.getMpa());
         jdbcTemplate.update(insertFilmText(),
                 film.getId(),film.getName(),
-                film.getDescription(),film.getDuration(),film.getReleaseDate(), film.getMpa().getId(), film.getRate());
+                film.getDescription(),film.getDuration(),film.getReleaseDate(),
+                film.getMpa().getId(), film.getRate());
         if (film.getGenres() != null) {
             genresDao.updateFilmGenres(film.getId(),
                     film.getGenres().stream().map(Genre::getId).collect(Collectors.toList()));
             film.setGenres(genresDao.getFilmGenres(film.getId()));
         }
+        film.setMpa(mpaDao.getMpa(film.getMpa().getId()));
         return film;
     }
 
@@ -59,15 +60,16 @@ public class FilmDbStorage implements FilmStorage{
     public Film update(Film film) {
         Validator.validateFilm(film);
         filmDao.getFilmById(film.getId());
-        mpaDao.validateMpa(film.getMpa());
         jdbcTemplate.update(updateFilmText(),
                 film.getName(),film.getDescription(),
-                film.getDuration(),film.getReleaseDate(),film.getMpa().getId(), film.getRate(), film.getId());
+                film.getDuration(),film.getReleaseDate(),
+                film.getMpa().getId(), film.getRate(), film.getId());
         if (film.getGenres() != null) {
             genresDao.updateFilmGenres(film.getId(),
                     film.getGenres().stream().map(Genre::getId).collect(Collectors.toList()));
             film.setGenres(genresDao.getFilmGenres(film.getId()));
         }
+        film.setMpa(mpaDao.getMpa(film.getMpa().getId()));
         return film;
     }
 

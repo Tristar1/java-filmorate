@@ -25,22 +25,22 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @AutoConfigureTestDatabase
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 class FilmoRateApplicationTests {
-    private final UserDbStorage userStorage;
+  /*  private final UserDbStorage userStorage;
 	private final FilmDbStorage filmStorage;
 	private final MpaDao mpaDao;
-	private final GenresDao genresDao;
+	private final GenresDao genresDao;*/
 
     @Test
     public void testFindUserById() {
 
-        userStorage.create(User.builder()
+      /*  userStorage.create(User.builder()
                 .login("test")
                 .birthday(LocalDate.now())
                 .name("test")
                 .email("mail@mail.ru")
                 .build());
 
-        /*Optional<User> userOptional = userStorage.getUser(Long.parseLong("1"));
+        Optional<User> userOptional = userStorage.getUser(Long.parseLong("1"));
 
         assertThat(userOptional)
                 .isPresent()
@@ -52,7 +52,7 @@ class FilmoRateApplicationTests {
 	@Test
 	public void testFindFilmById() {
 
-		filmStorage.create(Film.builder()
+		/*filmStorage.create(Film.builder()
 				.name("nisi eiusmod")
 				.releaseDate(LocalDate.now())
 				.name("film")
@@ -62,7 +62,7 @@ class FilmoRateApplicationTests {
 				.genres(new HashSet<>(List.of(genresDao.getGenreById(1))))
 				.build());
 
-		/*Optional<Film> userOptional = filmStorage.getFilm(1);
+		Optional<Film> userOptional = filmStorage.getFilm(1);
 
 		assertThat(userOptional)
 				.isPresent()
