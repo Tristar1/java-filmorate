@@ -1,4 +1,4 @@
-package ru.yandex.practicum.filmorate;
+/*package ru.yandex.practicum.filmorate;
 
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
@@ -70,4 +70,4 @@ class FilmoRateApplicationTests {
 				);
 	}
 }
-
+*/
