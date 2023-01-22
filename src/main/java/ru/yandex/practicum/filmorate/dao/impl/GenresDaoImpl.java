@@ -2,6 +2,7 @@ package ru.yandex.practicum.filmorate.dao.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
@@ -13,6 +14,7 @@ import ru.yandex.practicum.filmorate.service.GenreNotFoundException;
 import java.util.*;
 
 @Component
+@Qualifier("dbRealisation")
 public class GenresDaoImpl implements GenresDao {
 
     private final Logger log = LoggerFactory.getLogger(FilmDaoImpl.class);
