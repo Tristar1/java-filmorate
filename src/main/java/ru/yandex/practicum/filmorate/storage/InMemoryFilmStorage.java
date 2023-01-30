@@ -32,7 +32,7 @@ public class InMemoryFilmStorage implements FilmStorage{
     @Override
     public Film update(Film film) {
         Validator.validateFilm(film);
-        film.setLikes(getFilm(film.getId()).get().getLikes());
+        film.setLikes(getFilm(film.getId()).orElseThrow().getLikes());
         films.put(film.getId(), film);
         return film;
     }
@@ -59,14 +59,14 @@ public class InMemoryFilmStorage implements FilmStorage{
 
     @Override
     public Film addLike(Integer idFilm, Long idUser){
-        getFilm(idFilm).get().getLikes().add(idUser);
-        return getFilm(idFilm).get();
+        getFilm(idFilm).orElseThrow().getLikes().add(idUser);
+        return getFilm(idFilm).orElseThrow();
     }
 
     @Override
     public Film removeLike(Integer idFilm, Long idUser){
-        getFilm(idFilm).get().getLikes().remove(idUser);
-        return getFilm(idFilm).get();
+        getFilm(idFilm).orElseThrow().getLikes().remove(idUser);
+        return getFilm(idFilm).orElseThrow();
     }
 
 }

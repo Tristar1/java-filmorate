@@ -6,7 +6,6 @@ import java.util.List;
 
 public interface MpaDao {
     Mpa getMpa(Integer mpaId);
-    void validateMpa(Mpa mpa);
     List<Mpa> getMpa();
 
 }

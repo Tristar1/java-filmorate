@@ -3,7 +3,6 @@ package ru.yandex.practicum.filmorate;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import ru.yandex.practicum.filmorate.dao.GenresDao;
@@ -11,7 +10,6 @@ import ru.yandex.practicum.filmorate.dao.MpaDao;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.FilmDbStorage;
-import ru.yandex.practicum.filmorate.storage.FilmStorage;
 import ru.yandex.practicum.filmorate.storage.UserDbStorage;
 
 import java.time.LocalDate;
@@ -33,20 +31,20 @@ class FilmoRateApplicationTests {
     @Test
     public void testFindUserById() {
 
-        userStorage.create(User.builder()
+       userStorage.create(User.builder()
                 .login("test")
                 .birthday(LocalDate.now())
                 .name("test")
                 .email("mail@mail.ru")
                 .build());
 
-        /*Optional<User> userOptional = userStorage.getUser(Long.parseLong("1"));
+        Optional<User> userOptional = userStorage.getUser(Long.parseLong("1"));
 
         assertThat(userOptional)
                 .isPresent()
                 .hasValueSatisfying(user ->
                         assertThat(user).hasFieldOrPropertyWithValue("id", Long.parseLong("1"))
-                );*/
+                );
     }
 
 	@Test
@@ -62,13 +60,13 @@ class FilmoRateApplicationTests {
 				.genres(new HashSet<>(List.of(genresDao.getGenreById(1))))
 				.build());
 
-		/*Optional<Film> userOptional = filmStorage.getFilm(1);
+		Optional<Film> userOptional = filmStorage.getFilm(1);
 
 		assertThat(userOptional)
 				.isPresent()
 				.hasValueSatisfying(user ->
 						assertThat(user).hasFieldOrPropertyWithValue("id", 1)
-				);*/
+				);
 	}
 }
 

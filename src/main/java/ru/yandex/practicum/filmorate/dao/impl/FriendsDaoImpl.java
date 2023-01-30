@@ -33,19 +33,19 @@ public class FriendsDaoImpl implements FriendsDao {
         Optional<User> friend = userDao.getUserById(friendId);
 
         if (friendsAlreadyExist(userId,friendId)) {
-            return user.get();
+            return user.orElseThrow();
         }
 
         jdbcTemplate.update(addFriendText(),
                 userId,friendId);
-        return user.get();
+        return user.orElseThrow();
     }
 
     @Override
     public User removeFriend(Long userId, Long friendId){
         Optional<User> user = userDao.getUserById(userId);
         jdbcTemplate.update(removeFriendText(),userId,friendId);
-        return user.get();
+        return user.orElseThrow();
     }
 
     @Override
