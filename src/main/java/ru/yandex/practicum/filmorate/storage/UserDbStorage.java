@@ -26,13 +26,6 @@ public class UserDbStorage implements UserStorage {
         this.friendsDao = friendsDao;
     }
 
-    /*private void clearAlltables(){
-        String[] tables = {"USERS","FILMS","FILMS_GENRES","FRIENDS","LIKES"};
-        for (String table : tables) {
-            jdbcTemplate.execute("DELETE FROM " + table);
-        }
-    }*/
-
     @Override
     public Optional<User> getUser(Long userId) {
         return userDao.getUserById(userId);
@@ -53,7 +46,7 @@ public class UserDbStorage implements UserStorage {
         jdbcTemplate.update(insertUserText(),
                 user.getId(),user.getEmail(),
                 user.getLogin(),user.getName(),user.getBirthday());
-        return userDao.getUserById(user.getId()).get();
+        return userDao.getUserById(user.getId()).orElseThrow();
     }
 
     @Override
@@ -63,7 +56,7 @@ public class UserDbStorage implements UserStorage {
         jdbcTemplate.update(updateUserText(),
                 user.getEmail(),
                 user.getLogin(),user.getName(),user.getBirthday(),user.getId());
-        return userDao.getUserById(user.getId()).get();
+        return userDao.getUserById(user.getId()).orElseThrow();
     }
 
     @Override

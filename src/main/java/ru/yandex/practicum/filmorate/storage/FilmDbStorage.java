@@ -47,12 +47,7 @@ public class FilmDbStorage implements FilmStorage{
                 film.getId(),film.getName(),
                 film.getDescription(),film.getDuration(),film.getReleaseDate(),
                 film.getMpa().getId(), film.getRate());
-        if (film.getGenres() != null) {
-            genresDao.updateFilmGenres(film.getId(),
-                    film.getGenres().stream().map(Genre::getId).collect(Collectors.toList()));
-            film.setGenres(genresDao.getFilmGenres(film.getId()));
-        }
-        film.setMpa(mpaDao.getMpa(film.getMpa().getId()));
+        updateGenreMpaInformation(film);
         return film;
     }
 
@@ -64,13 +59,18 @@ public class FilmDbStorage implements FilmStorage{
                 film.getName(),film.getDescription(),
                 film.getDuration(),film.getReleaseDate(),
                 film.getMpa().getId(), film.getRate(), film.getId());
+        updateGenreMpaInformation(film);
+
+        return film;
+    }
+
+    private void updateGenreMpaInformation(Film film){
         if (film.getGenres() != null) {
             genresDao.updateFilmGenres(film.getId(),
                     film.getGenres().stream().map(Genre::getId).collect(Collectors.toList()));
             film.setGenres(genresDao.getFilmGenres(film.getId()));
         }
         film.setMpa(mpaDao.getMpa(film.getMpa().getId()));
-        return film;
     }
 
     @Override

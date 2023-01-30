@@ -11,7 +11,6 @@ import ru.yandex.practicum.filmorate.model.Mpa;
 import ru.yandex.practicum.filmorate.service.MpaNotFoundException;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @Component

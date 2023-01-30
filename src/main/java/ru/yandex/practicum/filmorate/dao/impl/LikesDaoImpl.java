@@ -37,7 +37,7 @@ public class LikesDaoImpl implements LikesDao {
             jdbcTemplate.update(addLikeText(),filmId,userId);
         }
 
-        return film.get();
+        return film.orElseThrow();
     }
 
     @Override
@@ -48,7 +48,7 @@ public class LikesDaoImpl implements LikesDao {
             jdbcTemplate.update(removeLikeText(),filmId,userId);
         }
 
-        return film.get();
+        return film.orElseThrow();
     }
 
     private boolean likeAlreadyExist(Integer filmId, Long userId){

@@ -31,7 +31,7 @@ public class InMemoryUserStorage implements UserStorage {
     @Override
     public User update(User user){
         Validator.validateUser(user);
-        user.setFriendList(getUser(user.getId()).get().getFriendList());
+        user.setFriendList(getUser(user.getId()).orElseThrow().getFriendList());
         users.put(user.getId(), user);
         return user;
     }
@@ -49,17 +49,17 @@ public class InMemoryUserStorage implements UserStorage {
 
     @Override
     public User addFriend(Long idUser, Long idFriend){
-        User user = getUser(idUser).get();
-        user.getFriendList().add(getUser(idFriend).get().getId());
-        getUser(idFriend).get().getFriendList().add(idUser);
+        User user = getUser(idUser).orElseThrow();
+        user.getFriendList().add(getUser(idFriend).orElseThrow().getId());
+        getUser(idFriend).orElseThrow().getFriendList().add(idUser);
         return user;
     }
 
     @Override
     public User removeFriend(Long idUser, Long idFriend){
-        User user = getUser(idUser).get();
-        user.getFriendList().remove(getUser(idFriend).get().getId());
-        getUser(idFriend).get().getFriendList().remove(idUser);
+        User user = getUser(idUser).orElseThrow();
+        user.getFriendList().remove(getUser(idFriend).orElseThrow().getId());
+        getUser(idFriend).orElseThrow().getFriendList().remove(idUser);
         return user;
     }
 
@@ -67,16 +67,16 @@ public class InMemoryUserStorage implements UserStorage {
     public List<User> getFriends(Long idUser){
 
         return getAll().stream()
-                .filter((User user) -> getUser(idUser).get().getFriendList().contains(user.getId()))
+                .filter((User user) -> getUser(idUser).orElseThrow().getFriendList().contains(user.getId()))
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<User> getCommonFriends(Long idUser, Long idFriend){
 
-        List<Long> commonFriendsId = getUser(idUser).get().getFriendList().stream()
+        List<Long> commonFriendsId = getUser(idUser).orElseThrow().getFriendList().stream()
                 .filter((Long id) -> getUser(idFriend)
-                        .get().getFriendList().contains(id))
+                        .orElseThrow().getFriendList().contains(id))
                 .collect(Collectors.toList());
 
         return getAll().stream()
